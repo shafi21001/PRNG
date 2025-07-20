@@ -1,4 +1,4 @@
-# 🔐 Custom PRNG with Distribution Visualizations
+# Custom PRNG with Distribution Visualizations
 
 This project demonstrates a powerful **custom pseudorandom number generator (PRNG)** implemented in Python with advanced distribution analysis capabilities. The randomness is **securely seeded from the operating system's entropy pool**, and its quality is analyzed using **multiple visualization techniques** including uniform and non-uniform distribution comparisons.
 
@@ -6,14 +6,14 @@ This project demonstrates a powerful **custom pseudorandom number generator (PRN
 
 ---
 
-## 🧠 What Is Entropy?
+## What Is Entropy?
 
 Imagine your computer's operating system has a special **"randomness bucket"** 🧳, known as the **entropy pool**. It collects **unpredictable data** from various real-world sources to ensure secure randomness.
 
 * **High Entropy**: Hard-to-guess events (e.g., exact timing between keystrokes)
 * **Low Entropy**: Predictable events (e.g., typing common words like "the")
 
-### ⚙️ How the OS Fills the Bucket
+### How the OS Fills the Bucket
 
 Your OS watches unpredictable system events like:
 
@@ -26,7 +26,7 @@ It mixes all of these into a high-quality **entropy pool**.
 
 ---
 
-## 🧰 `/dev/random` vs `/dev/urandom`
+## `/dev/random` vs `/dev/urandom`
 
 In Linux/Unix systems, programs access randomness through two special devices:
 
@@ -35,15 +35,15 @@ In Linux/Unix systems, programs access randomness through two special devices:
 | `/dev/random`  | **Blocks** until enough true entropy is available               |
 | `/dev/urandom` | Uses the entropy pool + cryptographic PRNG (fast, non-blocking) |
 
-> ✅ Our PRNG uses `os.urandom(32)`, which securely accesses `/dev/urandom` (or Windows Crypto API).
+> Our PRNG uses `os.urandom(32)`, which securely accesses `/dev/urandom` (or Windows Crypto API).
 
 ---
 
-## 🧪 How the Custom PRNG Works (Step-by-Step)
+## How the Custom PRNG Works (Step-by-Step)
 
 This custom PRNG is built using a mix of bitwise operations and cryptographic hashing, with advanced distribution generation capabilities:
 
-### 1. 🔑 Seed Initialization
+### 1. Seed Initialization
 
 ```python
 entropy = os.urandom(32)
@@ -55,7 +55,7 @@ self.state = int(hashed, 16) & 0xFFFFFFFF
 * SHA-256 hash spreads entropy uniformly
 * Final seed is reduced to a **32-bit state**
 
-### 2. 🔄 State Mixing (Bitwise Scrambling)
+### 2. State Mixing (Bitwise Scrambling)
 
 ```python
 self.state = (self.state ^ (self.state << 13)) & 0xFFFFFFFF
@@ -65,7 +65,7 @@ self.state = (self.state ^ (self.state << 5)) & 0xFFFFFFFF
 
 * XOR and bit shifting make output highly sensitive to seed and counter
 
-### 3. 🔁 Digest + Counter Mixing
+### 3. Digest + Counter Mixing
 
 ```python
 digest = hashlib.sha256(str(self.state + self.counter).encode()).hexdigest()
@@ -74,7 +74,7 @@ digest = hashlib.sha256(str(self.state + self.counter).encode()).hexdigest()
 * Adds a counter for extra uniqueness
 * Uses **SHA-256 again** to generate more unpredictable bits
 
-### 4. 🎯 Normalize Output to Range \[0, 100]
+### 4. Normalize Output to Range \[0, 100]
 
 ```python
 return int(digest, 16) % 101
@@ -84,11 +84,11 @@ return int(digest, 16) % 101
 
 ---
 
-## 🎲 Distribution Generation Features
+## Distribution Generation Features
 
 The custom PRNG supports generating different types of distributions:
 
-### 📊 **Uniform Distribution**
+### **Uniform Distribution**
 ```python
 uniform_x, uniform_y = prng.generate_uniform()
 ```
@@ -96,7 +96,7 @@ uniform_x, uniform_y = prng.generate_uniform()
 - Perfect for general randomness applications
 - Ideal baseline for randomness quality testing
 
-### 🎯 **Beta-like Distribution**
+### **Beta-like Distribution**
 ```python
 beta_x, beta_y = prng.generate_beta_like()
 ```
@@ -104,7 +104,7 @@ beta_x, beta_y = prng.generate_beta_like()
 - Uses transformation techniques on uniform output
 - Demonstrates distribution shaping capabilities
 
-### 📈 Comprehensive Visualization Suite
+### Comprehensive Visualization Suite
 
 #### 1. **2D Scatter Plots**
 - Side-by-side comparison of uniform vs. non-uniform distributions
@@ -123,11 +123,11 @@ beta_x, beta_y = prng.generate_beta_like()
 
 ---
 
-## 📊 Visual Distribution Analysis
+## Visual Distribution Analysis
 
 We analyze the quality of the PRNG output with **multiple visualization techniques**:
 
-### 🌟 Scatter Plot Analysis
+### Scatter Plot Analysis
 
 ```python
 plt.scatter(uniform_x, uniform_y, alpha=0.6, s=20, color='blue')
@@ -139,7 +139,7 @@ plt.scatter(beta_x, beta_y, alpha=0.6, s=20, color='red')
 | **Uniform**       | Even spread of points across entire [0,1] × [0,1] space    |
 | **Beta-like**     | Clustering around center (0.5, 0.5) with sparse edges     |
 
-### 📈 Histogram Analysis
+### Histogram Analysis
 
 | Feature        | Uniform Distribution | Beta-like Distribution |
 | -------------- | -------------------- | ---------------------- |
@@ -147,7 +147,7 @@ plt.scatter(beta_x, beta_y, alpha=0.6, s=20, color='red')
 | **Peak**       | No clear peak        | Peak around 0.5        |
 | **Spread**     | Even across range    | Concentrated in center |
 
-### 🧪 Statistical Quality Tests
+### Statistical Quality Tests
 
 #### Chi-square Test for Uniformity
 ```python
@@ -158,7 +158,7 @@ chi2_stat, p_value = chisquare(uniform_hist, expected_freq)
 
 ---
 
-## 📁 Files Included
+## Files Included
 
 ```
 🔹 custom_prng.py               # Custom PRNG implementation with visualizations
@@ -169,7 +169,7 @@ chi2_stat, p_value = chisquare(uniform_hist, expected_freq)
 
 ---
 
-## 📦 Requirements
+## Requirements
 
 Install required packages:
 
@@ -187,7 +187,7 @@ pip install matplotlib seaborn numpy scipy
 
 ---
 
-## 🚀 How to Run
+## How to Run
 
 ### Option 1: Direct Python Execution
 ```bash
@@ -207,9 +207,9 @@ python custom_prng.py
 
 ---
 
-## 📊 Output Examples
+## Output Examples
 
-### 📈 Generated Visualizations
+### Generated Visualizations
 
 1. **Scatter Plots**: `custom_prng_scatter.pdf`
    - Left: Uniform distribution (blue points)
@@ -219,7 +219,7 @@ python custom_prng.py
    - Four subplots showing X and Y distributions
    - Clear comparison between distribution types
 
-### 💻 Console Output
+### Console Output
 ```
 === Custom PRNG Distribution Comparison ===
 Uniform - Mean X: 0.503, Std X: 0.289

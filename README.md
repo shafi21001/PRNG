@@ -2,13 +2,13 @@
 
 This project demonstrates a powerful **custom pseudorandom number generator (PRNG)** implemented in Python with advanced distribution analysis capabilities. The randomness is **securely seeded from the operating system's entropy pool**, and its quality is analyzed using **multiple visualization techniques** including uniform and non-uniform distribution comparisons.
 
-> 📓 Built for cryptography education, randomness research, statistical analysis, and PRNG experimentation.
+> Built for cryptography education, randomness research, statistical analysis, and PRNG experimentation.
 
 ---
 
 ## What Is Entropy?
 
-Imagine your computer's operating system has a special **"randomness bucket"** 🧳, known as the **entropy pool**. It collects **unpredictable data** from various real-world sources to ensure secure randomness.
+Imagine your computer's operating system has a special **"randomness bucket"** , known as the **entropy pool**. It collects **unpredictable data** from various real-world sources to ensure secure randomness.
 
 * **High Entropy**: Hard-to-guess events (e.g., exact timing between keystrokes)
 * **Low Entropy**: Predictable events (e.g., typing common words like "the")
